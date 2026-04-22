@@ -1,0 +1,20 @@
+# Environments & Secrets
+.env
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+venv/
+env/
+
+# ML Tracking & Logs
+wandb/
+*.log
+AGENTS_LOG.md
+antigravity_state.json
+
+# Data & Models (Exclude heavy/raw files, keep only schemas if needed)
+data/raw_contracts/*
+!data/raw_contracts/.gitkeep
+data/models/*.json
+!data/models/.gitkeep

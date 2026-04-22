@@ -1,0 +1,17 @@
+langchain
+langchain-community
+faiss-cpu
+langchain-huggingface
+pymupdf
+sentence-transformers
+groq
+xgboost
+lightgbm
+imbalanced-learn
+shap
+wandb
+streamlit
+pandas
+scikit-learn
+faker
+datasets
