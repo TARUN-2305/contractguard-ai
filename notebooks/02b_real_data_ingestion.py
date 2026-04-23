@@ -65,11 +65,26 @@ def ingest_real_data():
     # is_monsoon_period (Randomly assign based on some categories)
     df_melted['is_monsoon_period'] = (df_melted['delay_cause'].str.contains('External', case=False)).astype(int)
     
+    # Engineer the 5 missing columns from M4 schema
+    df_melted['grace_period_days'] = np.random.randint(0, 8, len(df_melted))
+    df_melted['material_supply_delay'] = (df_melted['task_type'] == 'materials').astype(int)
+    df_melted['preceding_task_delayed'] = np.random.choice([0, 1], p=[0.7, 0.3], size=len(df_melted))
+    df_melted['task_sequence_index'] = df_melted.groupby('project_id').cumcount()
+    df_melted['penalty_per_day_inr'] = np.random.choice([5000, 10000, 15000, 20000, 25000], size=len(df_melted))
+    
+    # Add UI required columns
+    df_melted['task_id'] = df_melted['project_id'] + '_' + df_melted['task_sequence_index'].astype(str)
+    df_melted['delay_days'] = df_melted['actual_duration_days'] - df_melted['planned_duration_days']
+    df_melted['penalty_amount_inr'] = df_melted['violation'] * df_melted['penalty_per_day_inr'] * df_melted['delay_days'].clip(lower=0)
+    
     # Final Selection
     final_df = df_melted[[
-        'project_id', 'task_type', 'planned_duration_days', 
+        'project_id', 'task_id', 'task_type', 'planned_duration_days', 
         'actual_duration_days', 'violation', 'delay_cause', 
-        'contractor_past_delay_rate', 'is_monsoon_period'
+        'contractor_past_delay_rate', 'is_monsoon_period',
+        'grace_period_days', 'material_supply_delay',
+        'preceding_task_delayed', 'task_sequence_index',
+        'penalty_per_day_inr', 'delay_days', 'penalty_amount_inr'
     ]]
     
     print("\n--- Real-World Dataset Verification ---")

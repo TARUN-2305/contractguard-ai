@@ -7,7 +7,7 @@ from langchain_huggingface import HuggingFaceEmbeddings # newer package
 from groq import Groq
 from dotenv import load_dotenv
 
-def run_pipeline():
+def run_pipeline(pdf_stream=None):
     print("Starting Module 1 Pipeline...")
     # Setup Groq
     dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
@@ -22,11 +22,14 @@ def run_pipeline():
         raise FileNotFoundError(f"PDF not found at {pdf_path}")
 
     print("Extracting text from PDF...")
-    def extract_text_from_pdf(path):
-        doc = fitz.open(path)
+    def extract_text_from_pdf(path=None, stream=None):
+        if stream:
+            doc = fitz.open(stream=stream, filetype="pdf")
+        else:
+            doc = fitz.open(path)
         return "\n".join(page.get_text() for page in doc)
 
-    contract_text = extract_text_from_pdf(pdf_path)
+    contract_text = extract_text_from_pdf(path=pdf_path if not pdf_stream else None, stream=pdf_stream)
 
     print("Building Vector Store...")
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
@@ -119,10 +122,11 @@ CONTRACT TEXT:
     with open(os.path.join(rs_dir, "contract_001_rules.json"), "w") as f:
         json.dump(deduped_rules, f, indent=2)
 
-    return len(deduped_rules)
+    return deduped_rules
 
 if __name__ == "__main__":
-    count = run_pipeline()
+    rules = run_pipeline()
+    count = len(rules)
     if count >= 5:
         print("[SUCCESS] Extracted >= 5 rules.")
     else:

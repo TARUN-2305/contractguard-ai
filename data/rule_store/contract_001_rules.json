@@ -3,42 +3,42 @@
     "task_name": "bituminous_macadam_laying",
     "deadline_days": 30,
     "grace_period_days": 3,
-    "penalty_per_day_inr": null,
-    "quality_spec": null
+    "penalty_per_day_inr": 10000,
+    "quality_spec": "Minimum thickness of 150mm"
   },
   {
     "task_name": "road_marking_and_signage_installation",
     "deadline_days": 15,
     "grace_period_days": 0,
-    "penalty_per_day_inr": null,
-    "quality_spec": null
+    "penalty_per_day_inr": 5000,
+    "quality_spec": "Reflective thermoplastic paint"
   },
   {
     "task_name": "guardrail_installation",
     "deadline_days": 25,
     "grace_period_days": 5,
-    "penalty_per_day_inr": null,
-    "quality_spec": null
+    "penalty_per_day_inr": 8000,
+    "quality_spec": "W-beam galvanized steel"
   },
   {
     "task_name": "site_clearance_and_excavation",
     "deadline_days": 20,
-    "grace_period_days": null,
-    "penalty_per_day_inr": null,
-    "quality_spec": null
+    "grace_period_days": 2,
+    "penalty_per_day_inr": 20000,
+    "quality_spec": "As per NHAI manual for Site Clearance"
   },
   {
     "task_name": "sub_base_course_preparation",
     "deadline_days": 45,
-    "grace_period_days": null,
-    "penalty_per_day_inr": null,
-    "quality_spec": null
+    "grace_period_days": 5,
+    "penalty_per_day_inr": 15000,
+    "quality_spec": "Ensure proper compaction and leveling"
   },
   {
     "task_name": "bridge_deck_construction",
     "deadline_days": 60,
     "grace_period_days": 7,
-    "penalty_per_day_inr": null,
-    "quality_spec": null
+    "penalty_per_day_inr": 25000,
+    "quality_spec": "Concrete grade M40"
   }
 ]
