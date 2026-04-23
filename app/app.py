@@ -17,9 +17,9 @@ persona = st.sidebar.selectbox("Login as:",
 def load_data():
     # Since streamlit run app/app.py is executed from root directory, 
     # the relative paths mapped to "data/" will resolve correctly.
-    df = pd.read_csv("data/execution_merged.csv")
+    df = pd.read_csv("data/execution_merged_real.csv")
     model = xgb.XGBClassifier()
-    model.load_model("data/models/risk_predictor_v1.json")
+    model.load_model("data/models/risk_predictor_v2.json")
     return df, model
 
 df, risk_model = load_data()
